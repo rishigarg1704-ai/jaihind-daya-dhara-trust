@@ -1,0 +1,108 @@
+```html id="galleryfull01"
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Gallery | Jai Hind Daya Dhara Trust</title>
+
+<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="../css/responsive.css">
+
+</head>
+
+<body>
+
+<header>
+
+<nav class="navbar">
+
+<div class="logo">
+<a href="../index.html">
+<img src="../assets/logo/logo.png" alt="Trust Logo">
+</a>
+</div>
+
+<div class="menu-toggle" id="menu-toggle">☰</div>
+
+<ul class="nav-links" id="nav-links">
+
+<li><a href="../index.html">Home</a></li>
+<li><a href="about.html">About</a></li>
+<li><a href="work.html">Our Work</a></li>
+<li><a href="projects.html">Projects</a></li>
+<li><a href="members.html">Members</a></li>
+<li><a href="gallery.html">Gallery</a></li>
+<li><a href="news.html">News</a></li>
+<li><a href="contact.html">Contact</a></li>
+<li><a href="support.html">Support</a></li>
+
+</ul>
+
+</nav>
+
+</header>
+
+<section>
+
+<h1>Gallery</h1>
+
+<p style="text-align:center;margin-bottom:30px;">
+Photos from community programs, environmental initiatives
+and social activities organized by the trust.
+</p>
+
+<div class="gallery-grid" id="galleryGrid"></div>
+
+</section>
+
+<footer>
+
+<h3>JAI HIND DAYA DHARA TRUST</h3>
+
+<p>
+Working towards social welfare, environmental awareness
+and community development.
+</p>
+
+</footer>
+
+<script src="../js/main.js"></script>
+
+<script>
+
+const api="http://127.0.0.1:8000"
+
+async function loadGallery(){
+
+let res=await fetch(api+"/data")
+let data=await res.json()
+
+let grid=document.getElementById("galleryGrid")
+
+grid.innerHTML=""
+
+data.gallery.forEach(g=>{
+
+grid.innerHTML+=`
+
+<div class="gallery-item">
+<img src="http://127.0.0.1:8000/${g.image}" alt="${g.title}">
+</div>
+
+`
+
+})
+
+}
+
+loadGallery()
+
+</script>
+
+</body>
+</html>
+```

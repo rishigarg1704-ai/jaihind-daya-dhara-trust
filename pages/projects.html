@@ -1,0 +1,114 @@
+```html id="projectfull01"
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Projects | Jai Hind Daya Dhara Trust</title>
+
+<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="../css/responsive.css">
+
+</head>
+
+<body>
+
+<header>
+
+<nav class="navbar">
+
+<div class="logo">
+<a href="../index.html">
+<img src="../assets/logo/logo.png" alt="Trust Logo">
+</a>
+</div>
+
+<div class="menu-toggle" id="menu-toggle">☰</div>
+
+<ul class="nav-links" id="nav-links">
+
+<li><a href="../index.html">Home</a></li>
+<li><a href="about.html">About</a></li>
+<li><a href="work.html">Our Work</a></li>
+<li><a href="projects.html">Projects</a></li>
+<li><a href="members.html">Members</a></li>
+<li><a href="gallery.html">Gallery</a></li>
+<li><a href="news.html">News</a></li>
+<li><a href="contact.html">Contact</a></li>
+<li><a href="support.html">Support</a></li>
+
+</ul>
+
+</nav>
+
+</header>
+
+<section>
+
+<h1>Our Projects</h1>
+
+<p style="text-align:center;margin-bottom:30px;">
+Community development and social welfare initiatives
+organized by Jai Hind Daya Dhara Trust.
+</p>
+
+<div class="projects-grid" id="projectsGrid"></div>
+
+</section>
+
+<footer>
+
+<h3>JAI HIND DAYA DHARA TRUST</h3>
+
+<p>
+Working towards social welfare, environmental awareness
+and community development.
+</p>
+
+</footer>
+
+<script src="../js/main.js"></script>
+
+<script>
+
+const api="http://127.0.0.1:8000"
+
+async function loadProjects(){
+
+let res=await fetch(api+"/data")
+let data=await res.json()
+
+let grid=document.getElementById("projectsGrid")
+
+grid.innerHTML=""
+
+data.projects.forEach(p=>{
+
+grid.innerHTML+=`
+
+<div class="card">
+
+<img src="http://127.0.0.1:8000/${p.image}">
+
+<h3>${p.title}</h3>
+
+<p>${p.description}</p>
+
+</div>
+
+`
+
+})
+
+}
+
+loadProjects()
+
+</script>
+
+</body>
+</html>
+```

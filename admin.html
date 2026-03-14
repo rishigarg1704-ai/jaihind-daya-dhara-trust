@@ -1,0 +1,406 @@
+```html id="adminfull01"
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Trust Admin Panel</title>
+
+<style>
+
+body{
+font-family:Arial;
+background:#f4f4f4;
+margin:0;
+padding:40px;
+}
+
+.container{
+max-width:900px;
+margin:auto;
+background:white;
+padding:30px;
+border-radius:6px;
+box-shadow:0 2px 10px rgba(0,0,0,0.1);
+}
+
+h1{
+margin-bottom:30px;
+}
+
+h2{
+margin-top:40px;
+}
+
+input{
+width:100%;
+padding:10px;
+margin:8px 0;
+border:1px solid #ccc;
+border-radius:4px;
+}
+
+button{
+background:#0b7dda;
+color:white;
+border:none;
+padding:8px 14px;
+border-radius:4px;
+cursor:pointer;
+}
+
+button:hover{
+background:#095ca8;
+}
+
+.row{
+display:flex;
+align-items:center;
+margin:10px 0;
+padding:8px;
+border-bottom:1px solid #eee;
+}
+
+.row img{
+width:60px;
+height:60px;
+object-fit:cover;
+margin-right:10px;
+border-radius:4px;
+}
+
+.row div{
+flex:1;
+}
+
+.preview{
+width:120px;
+margin-top:10px;
+display:none;
+border-radius:4px;
+}
+
+.logout{
+float:right;
+background:#e74c3c;
+}
+
+.logout:hover{
+background:#c0392b;
+}
+
+hr{
+margin:40px 0;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<button class="logout" onclick="logout()">Logout</button>
+
+<h1>Trust Admin Panel</h1>
+
+<!-- MEMBER -->
+
+<h2>Add Member</h2>
+
+<form id="memberForm">
+
+<input name="name" placeholder="Member Name">
+
+<input name="role" placeholder="Role">
+
+<input type="file" name="photo" id="memberPhoto">
+
+<img id="memberPreview" class="preview">
+
+<button type="submit">Upload Member</button>
+
+</form>
+
+<h3>Members</h3>
+
+<div id="memberList"></div>
+
+<hr>
+
+<!-- GALLERY -->
+
+<h2>Add Gallery Image</h2>
+
+<form id="galleryForm">
+
+<input name="title" placeholder="Image Title">
+
+<input type="file" name="photo">
+
+<button type="submit">Upload Image</button>
+
+</form>
+
+<h3>Gallery</h3>
+
+<div id="galleryList"></div>
+
+<hr>
+
+<!-- PROJECT -->
+
+<h2>Add Project</h2>
+
+<form id="projectForm">
+
+<input name="title" placeholder="Project Title">
+
+<input name="description" placeholder="Description">
+
+<input type="file" name="photo">
+
+<button type="submit">Upload Project</button>
+
+</form>
+
+<h3>Projects</h3>
+
+<div id="projectList"></div>
+
+</div>
+
+<script>
+
+/* LOGIN PROTECTION */
+
+if(localStorage.getItem("adminLogged")!=="true"){
+window.location="admin_login.html"
+}
+
+/* API */
+
+const api="http://127.0.0.1:8000"
+
+/* LOGOUT */
+
+function logout(){
+
+localStorage.removeItem("adminLogged")
+
+window.location="admin_login.html"
+
+}
+
+/* IMAGE PREVIEW */
+
+document.getElementById("memberPhoto").onchange=function(){
+
+let file=this.files[0]
+
+let url=URL.createObjectURL(file)
+
+let img=document.getElementById("memberPreview")
+
+img.src=url
+
+img.style.display="block"
+
+}
+
+/* ADD MEMBER */
+
+document.getElementById("memberForm").onsubmit=async e=>{
+
+e.preventDefault()
+
+let form=new FormData(e.target)
+
+await fetch(api+"/member",{method:"POST",body:form})
+
+alert("Member added")
+
+loadMembers()
+
+}
+
+/* LOAD MEMBERS */
+
+async function loadMembers(){
+
+let res=await fetch(api+"/data")
+
+let data=await res.json()
+
+let box=document.getElementById("memberList")
+
+box.innerHTML=""
+
+data.members.forEach((m,i)=>{
+
+box.innerHTML+=`
+
+<div class="row">
+
+<img src="http://127.0.0.1:8000/${m.image}">
+
+<div>
+
+<b>${m.name}</b><br>
+
+${m.role}
+
+</div>
+
+<button onclick="deleteMember(${i})">Delete</button>
+
+</div>
+
+`
+
+})
+
+}
+
+/* DELETE MEMBER */
+
+async function deleteMember(i){
+
+await fetch(api+"/delete-member/"+i,{method:"DELETE"})
+
+loadMembers()
+
+}
+
+/* ADD GALLERY */
+
+document.getElementById("galleryForm").onsubmit=async e=>{
+
+e.preventDefault()
+
+let form=new FormData(e.target)
+
+await fetch(api+"/gallery",{method:"POST",body:form})
+
+alert("Image added")
+
+loadGallery()
+
+}
+
+/* LOAD GALLERY */
+
+async function loadGallery(){
+
+let res=await fetch(api+"/data")
+
+let data=await res.json()
+
+let box=document.getElementById("galleryList")
+
+box.innerHTML=""
+
+data.gallery.forEach((g,i)=>{
+
+box.innerHTML+=`
+
+<div class="row">
+
+<img src="http://127.0.0.1:8000/${g.image}">
+
+<div>${g.title}</div>
+
+<button onclick="deleteGallery(${i})">Delete</button>
+
+</div>
+
+`
+
+})
+
+}
+
+/* DELETE GALLERY */
+
+async function deleteGallery(i){
+
+await fetch(api+"/delete-gallery/"+i,{method:"DELETE"})
+
+loadGallery()
+
+}
+
+/* ADD PROJECT */
+
+document.getElementById("projectForm").onsubmit=async e=>{
+
+e.preventDefault()
+
+let form=new FormData(e.target)
+
+await fetch(api+"/project",{method:"POST",body:form})
+
+alert("Project added")
+
+loadProjects()
+
+}
+
+/* LOAD PROJECTS */
+
+async function loadProjects(){
+
+let res=await fetch(api+"/data")
+
+let data=await res.json()
+
+let box=document.getElementById("projectList")
+
+box.innerHTML=""
+
+data.projects.forEach((p,i)=>{
+
+box.innerHTML+=`
+
+<div class="row">
+
+<img src="http://127.0.0.1:8000/${p.image}">
+
+<div>
+
+<b>${p.title}</b><br>
+
+${p.description}
+
+</div>
+
+<button onclick="deleteProject(${i})">Delete</button>
+
+</div>
+
+`
+
+})
+
+}
+
+/* DELETE PROJECT */
+
+async function deleteProject(i){
+
+await fetch(api+"/delete-project/"+i,{method:"DELETE"})
+
+loadProjects()
+
+}
+
+loadMembers()
+loadGallery()
+loadProjects()
+
+</script>
+
+</body>
+</html>
+```

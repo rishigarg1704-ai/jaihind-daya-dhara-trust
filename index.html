@@ -1,5 +1,5 @@
-```html
 <!DOCTYPE html>
+
 <html lang="en">
 
 <head>
@@ -16,7 +16,7 @@
 
 <body>
 
-<header>
+<!-- NAVBAR -->
 
 <nav class="navbar">
 
@@ -26,7 +26,9 @@
 </a>
 </div>
 
-<div class="menu-toggle" id="menu-toggle">☰</div>
+<div class="menu-toggle" id="menu-toggle">
+☰
+</div>
 
 <ul class="nav-links" id="nav-links">
 
@@ -44,17 +46,15 @@
 
 </nav>
 
-</header>
-
 <!-- HERO -->
 
 <section class="hero">
 
-<h1>Jai Hind Daya Dhara Trust</h1>
+<h1>JAI HIND DAYA DHARA TRUST</h1>
 
 <p>
-Dedicated to community development, environmental protection,
-social welfare and cultural initiatives that support a better society.
+Serving humanity through social welfare, environmental awareness,
+community development and cultural initiatives.
 </p>
 
 <a href="pages/about.html" class="btn">Learn More</a>
@@ -71,26 +71,26 @@ social welfare and cultural initiatives that support a better society.
 
 <div class="card">
 
-<img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee">
+<img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f">
 
-<h3>Environmental Initiatives</h3>
+<h3>Arts & Culture</h3>
 
 <p>
-Tree plantation drives and environmental awareness programs
-promoting sustainable development.
+Promoting cultural programs and encouraging artistic
+expression within communities.
 </p>
 
 </div>
 
 <div class="card">
 
-<img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f">
+<img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee">
 
-<h3>Community Development</h3>
+<h3>Environment</h3>
 
 <p>
-Supporting communities through education, awareness and
-social engagement programs.
+Tree plantation drives and environmental awareness
+activities promoting sustainable development.
 </p>
 
 </div>
@@ -99,11 +99,11 @@ social engagement programs.
 
 <img src="https://images.unsplash.com/photo-1584515933487-779824d29309">
 
-<h3>Health Support</h3>
+<h3>Medical Support</h3>
 
 <p>
-Organizing community health camps and medical awareness
-programs for public welfare.
+Organizing health camps and community healthcare
+initiatives for people in need.
 </p>
 
 </div>
@@ -112,11 +112,11 @@ programs for public welfare.
 
 <img src="https://images.unsplash.com/photo-1469571486292-b53601020a53">
 
-<h3>Cultural Programs</h3>
+<h3>Social Welfare</h3>
 
 <p>
-Encouraging arts, culture and social unity through
-community events and initiatives.
+Supporting communities through education,
+awareness and social initiatives.
 </p>
 
 </div>
@@ -125,7 +125,7 @@ community events and initiatives.
 
 </section>
 
-<!-- RECENT PROJECTS -->
+<!-- RECENT ACTIVITIES -->
 
 <section>
 
@@ -140,8 +140,8 @@ community events and initiatives.
 <h3>Tree Plantation Drive</h3>
 
 <p>
-Volunteers participated in a large plantation drive
-to promote environmental awareness.
+Volunteers participated in planting trees to
+support environmental sustainability.
 </p>
 
 </div>
@@ -166,8 +166,8 @@ organized for local communities.
 <h3>Community Awareness Program</h3>
 
 <p>
-Educational programs conducted to encourage
-community participation and development.
+Educational and social awareness programs
+conducted for community development.
 </p>
 
 </div>
@@ -176,42 +176,31 @@ community participation and development.
 
 </section>
 
-<!-- CONTACT PREVIEW -->
-
-<section>
-
-<h2>Contact Us</h2>
-
-<p>
-Email: info@jaihindtrust.org
-</p>
-
-<p>
-Phone: +91 98765 43210
-</p>
-
-<p>
-Address: Community Development Center,
-City Area, India
-</p>
-
-<a href="pages/contact.html" class="btn">Contact Page</a>
-
-</section>
+<!-- FOOTER -->
 
 <footer>
 
 <h3>JAI HIND DAYA DHARA TRUST</h3>
 
 <p>
-Working towards social welfare, environmental awareness
-and community development.
+Working towards a better society through compassion,
+community engagement and sustainable initiatives.
 </p>
 
 </footer>
 
-<script src="js/main.js"></script>
+<!-- MOBILE MENU SCRIPT -->
+
+<script>
+
+const toggle=document.getElementById("menu-toggle");
+const nav=document.getElementById("nav-links");
+
+toggle.addEventListener("click",()=>{
+nav.classList.toggle("active");
+});
+
+</script>
 
 </body>
 </html>
-```
